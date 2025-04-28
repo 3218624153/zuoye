@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历 - 卫学振</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+       .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+        }
+
+       .photo-cell {
+            text-align: center;
+            width: 120px;
+        }
+
+       .photo {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+       .section-title {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 8px 12px;
+            display: inline-block;
+            transition: transform 1.8s ease;
+            position: relative;
+            left: 0;
+        }
+
+       .evaluation {
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+       .icon {
+            margin-right: 8px;
+            color: #333;
+        }
+
+        select,
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            border-color: #666;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.1);
+        }
+
+       .checkbox-group,
+       .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+       .checkbox-item,
+       .radio-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+       .form-section {
+            margin-bottom: 15px;
+        }
+
+       .form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+       .edit-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 12px;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+       .edit-button:hover {
+            background-color: #222;
+        }
+
+        fieldset {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        legend {
+            font-weight: bold;
+            color: #333;
+            padding: 0 10px;
+            font-size: 16px;
+            width: auto;
+        }
+
+       .action-buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+       .clear-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+            transition: background-color 0.2s;
+        }
+
+       .clear-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const titleElement = document.querySelector('h1');
+            const sectionTitles = document.querySelectorAll('.section-title');
+            const titleRect = titleElement.getBoundingClientRect();
+            const containerRect = document.querySelector('.resume-container').getBoundingClientRect();
+            const targetLeft = titleRect.left - containerRect.left + (titleRect.width - sectionTitles[0].offsetWidth) / 2;
+
+            sectionTitles.forEach(title => {
+                title.style.setProperty('--target-left', `${targetLeft}px`);
+            });
+
+            const fieldsets = document.querySelectorAll('fieldset');
+            fieldsets.forEach(fieldset => {
+                fieldset.addEventListener('mouseenter', function () {
+                    const sectionTitle = this.querySelector('.section-title');
+                    sectionTitle.style.transform = `translateX(var(--target-left)) rotate(5deg)`;
+                });
+                fieldset.addEventListener('mouseleave', function () {
+                    const sectionTitle = this.querySelector('.section-title');
+                    sectionTitle.style.transform = 'translateX(0) rotate(0)';
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="resume-container">
+        <h1>个人简历</h1>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-user-circle"></i> 基本信息</legend>
+            <table>
+                <tr>
+                    <td rowspan="4" class="photo-cell">
+                        <img src="wxz.jpg" alt="个人照片" class="photo">
+                        <p style="text-align: center; margin-top: 5px;">卫学振</p>
+                    </td>
+                    <td><i class="fas fa-user icon"></i>姓名</td>
+                    <td>
+                        <input type="text" value="卫学振" id="name" maxlength="20">
+                    </td>
+                    <td><i class="fas fa-venus-mars icon"></i>性别</td>
+                    <td>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="female" name="gender" value="女">
+                                <label for="female">女</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="male" name="gender" value="男" checked>
+                                <label for="male">男</label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-birthday-cake icon"></i>年龄</td>
+                    <td>
+                        <input type="text" value="19岁" id="age" maxlength="10">
+                    </td>
+                    <td><i class="fas fa-map-marker-alt icon"></i>籍贯</td>
+                    <td>
+                        <select id="hometown">
+                            <option value="湖北省黄石市" selected>湖北省黄石市</option>
+                            <option value="北京">北京</option>
+                            <option value="上海">上海</option>
+                            <option value="广东广州">广东广州</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-phone icon"></i>联系电话</td>
+                    <td>
+                        <input type="tel" value="19720052080" id="phone" maxlength="15">
+                    </td>
+                    <td><i class="fas fa-envelope icon"></i>电子邮箱</td>
+                    <td>
+                        <input type="email" value="3218624153@qq.com" id="email" maxlength="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-heartbeat icon"></i>健康状况</td>
+                    <td>
+                        <select id="health">
+                            <option value="良好" selected>良好</option>
+                            <option value="一般">一般</option>
+                            <option value="有慢性病">有慢性病</option>
+                        </select>
+                    </td>
+                    <td><i class="fas fa-heart icon"></i>婚姻状况</td>
+                    <td>
+                        <select id="marriage">
+                            <option value="未婚" selected>未婚</option>
+                            <option value="已婚">已婚</option>
+                            <option value="离异">离异</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-graduation-cap"></i> 学历与求职意向</legend>
+            <table>
+                <tr>
+                    <td><i class="fas fa-user-graduate icon"></i>学历</td>
+                    <td>
+                        <select id="education">
+                            <option value="高中">高中</option>
+                            <option value="大专">大专</option>
+                            <option value="本科" selected>本科</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </td>
+                    <td><i class="fas fa-briefcase icon"></i>专业</td>
+                    <td>
+                        <select id="major">
+                            <option value="软件工程" selected>软件工程</option>
+                            <option value="计算机科学与技术">计算机科学与技术</option>
+                            <option value="电子信息工程">电子信息工程</option>
+                            <option value="人工智能">人工智能</option>
+                            <option value="数据科学与大数据技术">数据科学与大数据技术</option>
+                            <option value="网络工程">网络工程</option>
+                            <option value="信息安全">信息安全</option>
+                            <option value="物联网工程">物联网工程</option>
+                            <option value="自动化">自动化</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-university icon"></i>毕业院校</td>
+                    <td colspan="3">
+                        <select id="school">
+                            <option value="鲁东大学" selected>鲁东大学</option>
+                            <option value="武汉大学">武汉大学</option>
+                            <option value="华中科技大学">华中科技大学</option>
+                            <option value="中国地质大学(武汉)">中国地质大学(武汉)</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-certificate"></i> 技能证书</legend>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert1" name="certificates" value="英语四级" checked>
+                                <label for="cert1">英语四级</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert3" name="certificates" value="计算机二级" checked>
+                                <label for="cert3">计算机二级</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert4" name="certificates" value="普通话等级证书">
+                                <label for="cert4">普通话等级证书</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert5" name="certificates" value="教师资格证">
+                                <label for="cert5">教师资格证</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert6" name="certificates" value="Python编程证书">
+                                <label for="cert6">Python编程证书</label>
+                            </div>
+                        </div>
+                        <input type="text" id="otherCert" placeholder="其他证书" maxlength="50" style="margin-top: 10px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-paint-brush"></i> 个人特长与爱好</legend>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skill1" name="skills" value="C语言编程" checked>
+                                <label for="skill1">C语言编程</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skill2" name="skills" value="绘画" checked>
+                                <label for="skill2">绘画</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skill5" name="skills" value="书法">
+                                <label for="skill5">书法</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skill6" name="skills" value="摄影">
+                                <label for="skill6">摄影</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skill7" name="skills" value="视频剪辑">
+                                <label for="skill7">视频剪辑</label>
+                            </div>
+                        </div>
+                        <input type="text" id="otherSkill" placeholder="其他特长爱好" maxlength="50" style="margin-top: 10px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-project-diagram"></i> 项目经历</legend>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="form-section">
+                            <label for="project1">项目1:</label>
+                            <input type="text" id="project1" value="智能校园任务协作平台（Web应用）" maxlength="100">
+                            <textarea id="projectDesc1" rows="6" style="width: 100%; margin-top: 8px;">主导需求调研，访谈12个学生团队，提炼出任务依赖关系可视化的核心需求
+开发中采用DDD领域驱动设计，将任务、成员、报表模块解耦，降低代码耦合度
+创新点：通过机器学习模型预测任务延期风险（基于历史数据+当前进度），准确率达82%
+部署方案：Docker容器化 + Jenkins自动化部署，支持500+并发用户</textarea>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="project2">项目2:</label>
+                            <input type="text" id="project2" value="基于计算机视觉的智慧教室签到系统（移动端+边缘计算）" maxlength="100">
+                            <textarea id="projectDesc2" rows="6" style="width: 100%; margin-top: 8px;">针对光照不均问题，提出基于RetinaFace改进的YOLOv5人脸检测模型，召回率提升15%
+开发过程中使用灰度发布策略，先在2个班级试点，逐步优化识别阈值
+安全性设计：人脸特征值加密后存储于本地，仅上传哈希值至云端
+硬件创新：通过USB3.0扩展坞实现多摄像头级联，覆盖150㎡大教室</textarea>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend class="section-title"><i class="fas fa-clipboard-check"></i> 自我评价</legend>
+            <table>
+                <tr>
+                    <td class="evaluation">
+                        <textarea id="selfEvaluation" rows="6" style="width: 100%;" maxlength="1000">作为鲁东大学软件工程专业学生，我系统掌握了Java/Python全栈开发、数据结构与算法、数据库优化等核心知识，GPA 3.7/4.0（前15%），连续两年获校级一等奖学金。
+
+实践中，主导开发智慧校园任务协作平台，采用Spring Boot+微服务架构实现千人级并发管理，获省级软件设计大赛二等奖；在边缘计算签到系统中创新应用YOLOv5轻量化模型，识别准确率达92%，部署于6间阶梯教室。
+
+擅长技术攻坚与团队协作，持有阿里云ACA认证，具备Scrum敏捷开发经验。未来将深耕AI工程化方向，持续探索技术赋能场景的价值边界。</textarea>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div class="action-buttons">
+            <button class="edit-button" style="padding: 12px 25px; font-size: 16px;" onclick="saveResume()">保存简历</button>
+            <button class="clear-button" onclick="clearResume()">清除内容</button>
+        </div>
+    </div>
+
+    <script>
+        function saveResume() {
+            const formData = {};
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    if (input.checked) {
+                        formData[input.id] = input.value;
+                    }
+                } else {
+                    formData[input.id] = input.value;
+                }
+            });
+            console.log('保存的简历数据:', formData);
+        }
+
+        function clearResume() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    input.checked = false;
+                    if (input.id === 'male') {
+                        input.checked = true;
+                    }
+                    if (input.id === 'cert1' || input.id === 'cert3' || input.id === 'skill1' || input.id === 'skill2') {
+                        input.checked = true;
+                    }
+                } else {
+                    input.value = '';
+                    if (input.id === 'name') {
+                        input.value = '卫学振';
+                    }
+                    if (input.id === 'age') {
+                        input.value = '19岁';
+                    }
+                    if (input.id === 'phone') {
+                        input.value = '19720052080';
+                    }
+                    if (input.id === 'email') {
+                        input.value = '3218624153@qq.com';
+                    }
+                    if (input.id === 'project1') {
+                        input.value = '智能校园任务协作平台（Web应用）';
+                    }
+                    if (input.id === 'projectDesc1') {
+                        input.value = '主导需求调研，访谈12个学生团队，提炼出任务依赖关系可视化的核心需求\n开发中采用DDD领域驱动设计，将任务、成员、报表模块解耦，降低代码耦合度\n创新点：通过机器学习模型预测任务延期风险（基于历史数据+当前进度），准确率达82%\n部署方案：Docker容器化 + Jenkins自动化部署，支持500+并发用户';
+                    }
+                    if (input.id === 'project2') {
+                        input.value = '基于计算机视觉的智慧教室签到系统（移动端+边缘计算）';
+                    }
+                    if (input.id === 'projectDesc2') {
+                        input.value = '针对光照不均问题，提出基于RetinaFace改进的YOLOv5人脸检测模型，召回率提升15%\n开发过程中使用灰度发布策略，先在2个班级试点，逐步优化识别阈值\n安全性设计：人脸特征值加密后存储于本地，仅上传哈希值至云端\n硬件创新：通过USB3.0扩展坞实现多摄像头级联，覆盖150㎡大教室';
+                    }
+                    if (input.id === 'selfEvaluation') {
+                        input.value = '作为鲁东大学软件工程专业学生，我系统掌握了Java/Python全栈开发、数据结构与算法、数据库优化等核心知识，GPA 3.7/4.0（前15%），连续两年获校级一等奖学金。\n\n实践中，主导开发智慧校园任务协作平台，采用Spring Boot+微服务架构实现千人级并发管理，获省级软件设计大赛二等奖；在边缘计算签到系统中创新应用YOLOv5轻量化模型，识别准确率达92%，部署于6间阶梯教室。\n\n擅长技术攻坚与团队协作，持有阿里云ACA认证，具备Scrum敏捷开发经验。未来将深耕AI工程化方向，持续探索技术赋能场景的价值边界。';
+                    }
+                }
+            });
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                const defaultOption = select.querySelector('option[selected]');
+                if (defaultOption) {
+                    select.value = defaultOption.value;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>    
