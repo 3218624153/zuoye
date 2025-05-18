@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转七彩霓虹灯效果</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1',
+                        dark: '#111827',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .neon-circle {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(5px);
+                transition: all 0.3s ease;
+            }
+            .neon-container {
+                position: relative;
+                width: 24rem;
+                height: 24rem;
+                margin: 5rem auto 0;
+            }
+            .pulse-effect {
+                animation: pulse 2s infinite alternate;
+            }
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 5px rgba(255,255,255,0.7);
+                }
+                100% {
+                    box-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 30px currentColor, 0 0 40px currentColor;
+                }
+            }
+            .control-btn {
+                transition: all 0.3s ease;
+                transform: translateY(0);
+            }
+            .control-btn:hover {
+                transform: translateY(-2px);
+            }
+            .control-btn:active {
+                transform: translateY(1px);
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen font-sans text-light flex flex-col">
+    <div class="container mx-auto px-4 py-12 max-w-6xl flex-grow">
+        <header class="text-center mb-10">
+            <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white mb-3 tracking-tight">旋转七彩霓虹灯效果</h1>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto">七个彩色圆形围绕中心旋转并变化颜色</p>
+        </header>
+
+        <main class="flex flex-col items-center justify-center">
+            <div class="bg-dark/30 backdrop-blur-md rounded-2xl shadow-xl p-8 mb-10 w-full max-w-2xl transform transition-all duration-500 hover:shadow-2xl">
+                <div class="relative">
+                    <div class="text-center mb-8">
+                        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-yellow-400 to-blue-400 pulse-effect">NEON LIGHTS</h2>
+                    </div>
+                    
+                    <div class="neon-container" id="neonContainer">
+                        <!-- 圆形将通过JS动态生成 -->
+                    </div>
+                    
+                    <div class="flex justify-center gap-4 mt-12">
+                        <button id="startBtn" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-full shadow-md control-btn flex items-center">
+                            <i class="fa fa-play mr-2"></i> 开始动画
+                        </button>
+                        <button id="pauseBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-6 rounded-full shadow-md control-btn flex items-center" disabled>
+                            <i class="fa fa-pause mr-2"></i> 暂停动画
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-20 text-center text-gray-400 text-sm">
+            <p>© 2025 旋转七彩霓虹灯效果 | 使用 HBuilder 开发</p>
+        </footer>
+    </div>
+
+    <script>
+        const neonColors = [
+            'rgba(255, 59, 48, 0.8)',    
+            'rgba(255, 149, 0, 0.8)',    
+            'rgba(255, 204, 0, 0.8)',    
+            'rgba(76, 217, 100, 0.8)',   
+            'rgba(90, 200, 250, 0.8)',   
+            'rgba(88, 86, 214, 0.8)',    
+            'rgba(175, 82, 222, 0.8)'    
+        ];
+        
+        const neonContainer = document.getElementById('neonContainer');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        
+        let neonCircles = [];
+        const circleCount = 7;
+        const containerSize = 384;
+        const circleRadius = 30;
+        
+        let rotationSpeed = 20;    
+        let colorChangeInterval = 2000;
+        let rotationTimer = null;
+        let colorTimer = null;
+        let isPaused = true;
+        let rotationAngle = 0;
+        let currentTransform = '';
+        
+        function createNeonCircles() {
+            for (let i = 0; i < circleCount; i++) {
+                const angle = (i / circleCount) * 2 * Math.PI;
+                const circle = document.createElement('div');
+                
+                const x = Math.cos(angle) * (containerSize / 2 - circleRadius * 2);
+                const y = Math.sin(angle) * (containerSize / 2 - circleRadius * 2);
+                
+                circle.className = 'neon-circle pulse-effect';
+                circle.style.width = `${circleRadius * 2}px`;
+                circle.style.height = `${circleRadius * 2}px`;
+                circle.style.left = `${(containerSize - circleRadius * 2) / 2 + x}px`;
+                circle.style.top = `${(containerSize - circleRadius * 2) / 2 + y}px`;
+                circle.style.backgroundColor = neonColors[i];
+                circle.style.boxShadow = `0 0 15px ${neonColors[i]}`;
+                circle.style.color = neonColors[i].replace('0.8', '1');
+                
+                neonContainer.appendChild(circle);
+                neonCircles.push(circle);
+            }
+        }
+        
+        function startAnimation() {
+            if (isPaused) {
+                isPaused = false;
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+                
+                startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                pauseBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                if (currentTransform) {
+                    neonContainer.style.transform = currentTransform;
+                }
+                
+                rotationTimer = setInterval(() => {
+                    rotationAngle += 1;
+                    neonContainer.style.transform = `rotate(${rotationAngle}deg)`;
+                }, rotationSpeed);
+                
+                changeColors();
+                colorTimer = setInterval(changeColors, colorChangeInterval);
+            }
+        }
+        
+        function pauseAnimation() {
+            if (!isPaused) {
+                isPaused = true;
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+                
+                startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                pauseBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                
+                currentTransform = neonContainer.style.transform;
+                neonContainer.style.transform = currentTransform;
+                
+                clearInterval(rotationTimer);
+                clearInterval(colorTimer);
+            }
+        }
+        
+        function changeColors() {
+            const shuffledColors = [...neonColors].sort(() => Math.random() - 0.5);
+            
+            neonCircles.forEach((circle, index) => {
+                circle.style.backgroundColor = shuffledColors[index];
+                circle.style.boxShadow = `0 0 15px ${shuffledColors[index]}`;
+                circle.style.color = shuffledColors[index].replace('0.8', '1');
+            });
+        }
+        
+        startBtn.addEventListener('click', startAnimation);
+        pauseBtn.addEventListener('click', pauseAnimation);
+        
+        window.addEventListener('load', () => {
+            createNeonCircles();
+            document.body.classList.add('opacity-100');
+            document.body.classList.remove('opacity-0');
+        });
+    </script>
+</body>
+</html>
+    
